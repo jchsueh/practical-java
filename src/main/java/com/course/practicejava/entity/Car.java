@@ -1,5 +1,7 @@
 package com.course.practicejava.entity;
 
+import java.time.LocalDate;
+
 public class Car {
 	
 	private String brand;
@@ -8,8 +10,15 @@ public class Car {
 	
 	private String type;
 	
+	private int price;
 	
+	private boolean available;
 	
+	private LocalDate firstReleaseDate;
+	
+	public Car() {
+		
+	}
 
 	public Car(String brand, String color, String type) {
 		super();
@@ -18,9 +27,33 @@ public class Car {
 		this.type = type;
 	}
 	
-	public Car() {
-	
+	public int getPrice() {
+		return price;
 	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public LocalDate getFirstReleaseDate() {
+		return firstReleaseDate;
+	}
+
+	public void setFirstReleaseDate(LocalDate firstReleaseDate) {
+		this.firstReleaseDate = firstReleaseDate;
+	}
+
+
+	
+
 
 	public String getBrand() {
 		return brand;
@@ -48,8 +81,11 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "Car [brand=" + brand + ", color=" + color + ", type=" + type + "]";
+		return "Car [brand=" + brand + ", color=" + color + ", type=" + type + ", price=" + price + ", available="
+				+ available + ", firstReleaseDate=" + firstReleaseDate + "]";
 	}
+
+
 	
 	
 
