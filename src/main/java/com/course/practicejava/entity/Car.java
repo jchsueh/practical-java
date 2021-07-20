@@ -1,21 +1,59 @@
 package com.course.practicejava.entity;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Document(indexName = "practical-java")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Car {
-	
+
+	@Id
+	private String id;
+
 	private String brand;
 	
 	private String color;
-	
+
 	private String type;
 	
 	private int price;
 	
 	private boolean available;
-	
+
+	@Field(type = FieldType.Date, format = DateFormat.date)
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Taipei")
 	private LocalDate firstReleaseDate;
-	
+
+	@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+	private List<String> additionalFeatures;
+
+	@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+	private String secretFeatures;
+
+	@JsonUnwrapped
+	private Engine engine;
+
+	private List<Tire> tires;
+
+	public List<String> getAdditionalFeatures() {
+		return additionalFeatures;
+	}
+
+	public void setAdditionalFeatures(List<String> additionalFeatures) {
+		this.additionalFeatures = additionalFeatures;
+	}
+
 	public Car() {
 		
 	}
@@ -26,7 +64,39 @@ public class Car {
 		this.color = color;
 		this.type = type;
 	}
-	
+
+	public String getSecretFeatures() {
+		return secretFeatures;
+	}
+
+	public void setSecretFeatures(String secretFeatures) {
+		this.secretFeatures = secretFeatures;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Engine getEngine() {
+		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+
+	public List<Tire> getTires() {
+		return tires;
+	}
+
+	public void setTires(List<Tire> tires) {
+		this.tires = tires;
+	}
+
 	public int getPrice() {
 		return price;
 	}
@@ -81,12 +151,18 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "Car [brand=" + brand + ", color=" + color + ", type=" + type + ", price=" + price + ", available="
-				+ available + ", firstReleaseDate=" + firstReleaseDate + "]";
+		return "Car{" +
+				"id='" + id + '\'' +
+				", brand='" + brand + '\'' +
+				", color='" + color + '\'' +
+				", type='" + type + '\'' +
+				", price=" + price +
+				", available=" + available +
+				", firstReleaseDate=" + firstReleaseDate +
+				", additionalFeatures=" + additionalFeatures +
+				", secretFeatures='" + secretFeatures + '\'' +
+				", engine=" + engine +
+				", tires=" + tires +
+				'}';
 	}
-
-
-	
-	
-
 }
